@@ -37,7 +37,7 @@ app.post('/users', usersController.postController);
 //get all issues
 app.get('/projects', issuesController.getController);
 //get an issue
-app.get('/projects/:id', issuesController.getByID); // revisar
+app.get('/projects/:id', issuesController.getByID); 
 //add an issue
 app.post('/projects', issuesController.postController);
 

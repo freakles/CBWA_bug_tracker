@@ -1,21 +1,20 @@
 const issues = require('../models/issues')();
 
 module.exports = () => {
-  const getController = (req, res) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.json(issues.get());
+  const getController = async (req, res) => {
+    res.json( await issues.get());
   };
 
-  const getByID = (req, res) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.json(issues.get(req.params.id));
+  const getByID = async (req, res) => {
+    res.json({ error: "byId not implemented yet"});
   };
 
-  const postController = (req, res) => {
+  const postController = async (req, res) => {
     const title = req.body.title;
     const description = req.body.description;
-    issues.add(title, description);
-    return res.end(`POST: ${(title, description)}`);
+    const result = await issues.add(title, description);
+    
+    res.json(result);
   };
 
   return {

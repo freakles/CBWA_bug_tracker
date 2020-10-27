@@ -2,24 +2,26 @@ const db = require("../db")();
 const COLLECTION = "users";
 
 module.exports = () => {
+  const get = async () => {
+    console.log('   inside users model');
+    const users = await db.get(COLLECTION);
+    return users;
+  };
 
-    const get = () => {
-      console.log('   inside users model');
-      return db.users;
-      
-    };
-
-    const add = (name, email, usertype, key) => {
-      return db.users.push({
-        name: name,
-        email: email,
-        usertype: usertype,
-        key: key
-      });
-    };
+  const add = async (name, email, usertype, key) => {
+    const userCount = await db.count(COLLECTION);
+    const results = await db.add(COLLECTION, {
+      id: userCount + 1,
+      name: name,
+      email: email,
+      usertype: usertype,
+      key: key,
+    });
+    return results.result;
+  };
     
-    const getByKey = async(key) => {
-        if(!key) {
+  const getByKey = async(key) => {
+      if(!key) {
             console.log("   01: Missing key");
             return null;
         }
