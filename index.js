@@ -6,6 +6,8 @@ const port = process.env.PORT || 3000;
 
 const projectsController = require('./controllers/projects')();
 const usersController = require('./controllers/users')();
+const issuesController = require('./controllers/issues')();
+
 /*
 let issues = ['i1', 'i2', 'i3'];
 */
@@ -27,10 +29,17 @@ app.post('/projects', projectsController.postController);
 
 //get all users
 app.get('/users', usersController.getController);
-//get a project
+//get an user
 app.get('/users/:email', usersController.getByEmail);
-//add a project
+//add an user
 app.post('/users', usersController.postController);
+
+//get all issues
+app.get('/projects', issuesController.getController);
+//get an issue
+app.get('/projects/:id', issuesController.getByID); // revisar
+//add an issue
+app.post('/projects', issuesController.postController);
 
 
 app.listen(port, hostname, () => {

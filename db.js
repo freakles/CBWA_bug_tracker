@@ -28,8 +28,20 @@ module.exports = () => {
         },
     ];
 
+    const issues = [
+        {
+            title: 'i1',
+            description: 'first issue',
+        },
+        {
+            title: 'i2',
+            description: 'second issues',
+        }
+    ]
+
     return {
         projects,
         users,
+        issues,
     }
 }
