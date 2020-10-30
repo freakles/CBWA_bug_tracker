@@ -1,25 +1,73 @@
 const db = require('../db')();
 const COLLECTION = 'issues';
+const ObjectId = require('mongodb').ObjectID;
 
 module.exports = () => {
-  const get = async () => {
+  const get = async (issueNumber = null) => {
     console.log('   inside issues model');
-    const issues = await db.get(COLLECTION);
+    if (!issueNumber) {
+      const issues = await db.get(COLLECTION);
+      return issues;
+    }
+
+    const issues = await db.get(COLLECTION, { issueNumber });
     return issues;
   };
 
-  const add = async (title, description) => {
+  //AGGREGATE WITH PROJECTS
+  const getBySlug = async (slug) => {
+    const PIPELINE = [
+      {
+        $lookup: {
+          from: 'issues',
+          localField: '_id',
+          foreignField: 'project_id',
+          as: 'issues',
+        },
+      },
+      {
+        $match: { slug },
+      },
+      {
+        $project: {
+          'issues.project_id': 0,
+        },
+      },
+    ];
+    
+    const issueBySlug = await db.aggregate('projects', PIPELINE);
+    return issueBySlug;
+  };
+
+
+  const add = async (slug, title, description, status) => {
+    const project = await db.get('projects', { slug });
+    const { project_id, slugName } = project;
     const issueCount = await db.count(COLLECTION);
     const results = await db.add(COLLECTION, {
-      id: issueCount + 1,
+      issueNumber: `${slugName}-${issueCount + 1}`,
       title: title,
       description: description,
+      status: status,
+      project_id: project_id,
+      comment: [],
     });
+    return results.result;
+  };
+
+  const updateStatus = async (issueNumber, status) => {
+    const PIPELINE = [
+      { issueNumber: issueNumber },
+      { $set: { status: status } },
+    ];
+    const results = await db.update(COLLECTION, PIPELINE);
     return results.result;
   };
 
   return {
     get,
+    getBySlug,
     add,
+    updateStatus,
   };
 };

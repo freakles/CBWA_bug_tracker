@@ -2,16 +2,19 @@ const db = require("../db")();
 const COLLECTION = "users";
 
 module.exports = () => {
-  const get = async () => {
+  const get = async ( email = null ) => {
     console.log('   inside users model');
-    const users = await db.get(COLLECTION);
+    if (!email) {
+      const users = await db.get(COLLECTION);
+      return users;
+    }
+    
+    const users = await db.get(COLLECTION, { email });
     return users;
   };
 
   const add = async (name, email, usertype, key) => {
-    const userCount = await db.count(COLLECTION);
     const results = await db.add(COLLECTION, {
-      id: userCount + 1,
       name: name,
       email: email,
       usertype: usertype,
@@ -27,7 +30,7 @@ module.exports = () => {
         }
 
         const users = await db.get(COLLECTION, { key });
-        if (users.length !== 1) {
+        if (users.length !== 2) {
             console.log("   02: Bad key");
             return null;
         }

@@ -64,60 +64,25 @@ module.exports = () => {
     });
   };
 
+  const update = (collectionName, pipeline = []) => {
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(uri, MONGO_OPTIONS, (err, client) => {
+        const db = client.db(DB_NAME);
+        const collection = db.collection(collectionName);
+
+        collection.updateOne(pipeline[0], pipeline[1], (err, result) => {
+          resolve(result);
+          client.close();
+        });
+      });
+    });
+  };
+
   return {
     count,
     get,
     add,
     aggregate,
+    update,
   };
 };
-
-
-/*
-module.exports = () => {
-
-    const projects = [
-        { 
-            slug: 'BOOKS',
-            name: 'bookstore',
-            description: 'a book project' 
-        },
-        {
-            slug: 'BUGS',
-            name: 'bugtracker',
-            description: 'a bugtracker project'
-        },
-    ];
-
-    const users = [
-        {
-            name: 'Jean Paul',
-            email: 'jeanpaul@cbwa.com',
-            usertype: 'user',
-            key: 'new password',
-        },
-        {
-            name: 'Dave',
-            email: 'dave@cbwa.com',
-            usertype: 'user',
-            key: 'new password',
-        },
-    ];
-
-    const issues = [
-        {
-            title: 'i1',
-            description: 'first issue',
-        },
-        {
-            title: 'i2',
-            description: 'second issues',
-        }
-    ]
-
-    return {
-        projects,
-        users,
-        issues,
-    }
-}*/
