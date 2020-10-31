@@ -1,6 +1,6 @@
 const db = require('../db')();
 const COLLECTION = 'issues';
-const ObjectId = require('mongodb').ObjectID;
+
 
 module.exports = () => {
   const get = async (issueNumber = null) => {
@@ -39,7 +39,7 @@ module.exports = () => {
     return issueBySlug;
   };
 
-
+//not done yet
   const add = async (slug, title, description, status) => {
     const project = await db.get('projects', { slug });
     const { project_id, slugName } = project;

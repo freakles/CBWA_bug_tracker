@@ -7,6 +7,7 @@ const port = process.env.PORT || 3000;
 const projectsController = require('./controllers/projects')();
 const usersController = require('./controllers/users')();
 const issuesController = require('./controllers/issues')();
+const commentsController = require('./controllers/comments')();
 
 const users = require('./models/users')(); // users security layer
 
@@ -85,6 +86,9 @@ app.get('/projects/:slug/issues', issuesController.getBySlug); //AGGREGATE WITH 
 app.post('/projects/:slugName/issues', issuesController.postController);
 //update status
 app.put('/projects/issues/:issueNumber/:status', issuesController.updateStatus);
+
+//get all comments
+app.get('/comments', commentsController.getComments);
 
 
 
