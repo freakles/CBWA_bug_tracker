@@ -55,6 +55,12 @@ app.use(async (req, res, next) => {
 
 app.use(bodyParser.json());
 
+app.get('/', (req, res) => {
+  res.json({
+    hello: "bug-tracker",
+  });
+});
+
 //get all projects
 app.get('/projects', projectsController.getController);
 //get a project
