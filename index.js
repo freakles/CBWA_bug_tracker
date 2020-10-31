@@ -13,13 +13,12 @@ const users = require('./models/users')(); // users security layer
 const app = module.exports = express();
 
 app.use((req, res, next) => {
-    console.log('[%s] %s -- %s', new Date(), req.method, req. url);
+    console.log('[%s] %s -- %s', new Date(), req.method, req.url);
     next();
 });
 
 app.use(async (req, res, next) => {
   const FailedAuthMessage = {
-    // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
     error: 'Failed Authentication',
     message: 'Go Away!',
     code: 'xxxx', // Some useful error code
