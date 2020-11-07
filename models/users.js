@@ -5,12 +5,22 @@ module.exports = () => {
   const get = async ( email = null ) => {
     console.log('   inside users model');
     if (!email) {
-      const users = await db.get(COLLECTION);
-      return users;
+      try {
+        const users = await db.get(COLLECTION);
+        console.log(users);
+        return { usersList: users };
+      } catch (ex) {
+        console.log('========= USERS GET ERROR');
+        return { error: ex };
+      }
     }
     
-    const users = await db.get(COLLECTION, { email });
-    return users;
+    try {
+      const users = await db.get(COLLECTION, { email });
+      return { usersList: users };
+    } catch (ex) {
+      return { error: ex };
+    }
   };
 
   const add = async (name, email, usertype, key) => {

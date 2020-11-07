@@ -2,7 +2,11 @@ const issues = require('../models/issues')();
 
 module.exports = () => {
   const getController = async (req, res) => {
-    res.json( await issues.get());
+    const { issuesList, error } = await issues.get();
+    if (error) {
+      return res.status(500).json({ error });
+    }
+    res.json({ issues: issuesList });
   };
 
   const getByID = async (req, res) => {

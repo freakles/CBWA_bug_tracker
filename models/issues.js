@@ -8,12 +8,22 @@ module.exports = () => {
   const get = async (issueNumber = null) => {
     console.log('   inside issues model');
     if (!issueNumber) {
-      const issues = await db.get(COLLECTION);
-      return issues;
+      try {
+        const issues = await db.get(COLLECTION);
+        console.log(issues);
+        return { issuesList: issues };
+      } catch (ex) {
+        console.log('========= ISSUES GET ERROR');
+        return { error: ex };
+      }
     }
 
-    const issues = await db.get(COLLECTION, { issueNumber });
-    return issues;
+    try {
+      const issues = await db.get(COLLECTION, { issueNumber });
+      return { issuesList: issues };
+    } catch (ex) {
+      return { error: ex };
+    }
   };
 
   //AGGREGATE WITH PROJECTS

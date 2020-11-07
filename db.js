@@ -21,11 +21,19 @@ module.exports = () => {
   const get = (collectionName, query = {}) => {
     return new Promise((resolve, reject) => {
       MongoClient.connect(uri, MONGO_OPTIONS, (err, client) => {
-        console.log(err);
+        if (err) {
+          console.log(err);
+          return reject('======= get::MongoClient.connect');
+        }
         const db = client.db(DB_NAME);
         const collection = db.collection(collectionName);
 
         collection.find(query).toArray((err, docs) => {
+          if (err) {
+            console.log('===== get::collection.find');
+            console.log(err);
+            return reject(err);
+          }
           resolve(docs);
           client.close();
         });

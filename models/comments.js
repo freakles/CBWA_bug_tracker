@@ -14,8 +14,12 @@ module.exports = () => {
             },
         ];
 
-        const allComments = await db.aggregate(COLLECTION, PIPELINE);
-        return allComments;
+        try {
+            const allComments = await db.aggregate(COLLECTION, PIPELINE);
+            return allComments;
+        } catch (ex) {
+            return { error: ex }
+        }
     };
 
     return {

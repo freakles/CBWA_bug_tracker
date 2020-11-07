@@ -2,7 +2,11 @@ const users = require('../models/users')();
 
 module.exports = () => {
   const getController = async (req, res) => {
-    res.json(await users.get());
+    const { usersList, error } = await users.get();
+    if (error) {
+      return res.status(500).json({ error });
+    }
+    res.json({ users: usersList });
   };
 
   const getByEmail = async (req, res) => {

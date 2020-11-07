@@ -6,12 +6,22 @@ module.exports = () => {
     const get = async (slug = null) => {
         console.log('   inside projects model');
         if (!slug) {
-            const projects = await db.get(COLLECTION);
-            return projects;
+            try {
+                const projects = await db.get(COLLECTION);
+                console.log(projects)
+                return { projectsList: projects };
+            } catch (ex) {
+                console.log("========= PROJECTS GET ERROR")
+                return { error: ex };
+            }
         }
         
-        const projects = await db.get(COLLECTION, { slug });
-        return projects;
+        try {
+            const projects = await db.get(COLLECTION, { slug });
+            return { projectsList: projects };
+        } catch (ex) {
+            return { error: ex };
+        }
     };
 
     const add = async (slug, name, description) => {
