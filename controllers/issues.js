@@ -4,19 +4,36 @@ module.exports = () => {
   const getController = async (req, res) => {
     const { issuesList, error } = await issues.get();
     if (error) {
-      return res.status(500).json({ error });
+      console.log('====== ERROR GET::CONTROLLER ISSUES');
+      return res
+        .status(500)
+        .json({ error: 'Oooops! Issues::get is not working' });
     }
     res.json({ issues: issuesList });
   };
 
   const getByID = async (req, res) => {
-    res.json(await issues.get(req.params.issueNumber));
+    const { issuesList, error } = await issues.get(req.params.issueNumber);
+    if (error) {
+      console.log('====== ERROR GET::ID::CONTROLLER ISSUES');
+      return res
+        .status(500)
+        .json({ error: 'Oooops! Issues::getByID is not working' });
+    }
+    res.json({ issues: issuesList });
   };
 
   //AGGREGATE WITH PROJECTS
   const getBySlug = async (req, res) => {
-    res.json(await issues.getBySlug(req.params.slug));
- }
+    const { issuesList, error } = await issues.getBySlug(req.params.slug);
+    if (error) {
+      console.log('====== ERROR GET::SLUG::CONTROLLER ISSUES');
+      return res
+        .status(500)
+        .json({ error: 'Oooops! Issues::getBySLug is not working' });
+    }
+    res.json({ issues: issuesList });
+  };
 
   const postController = async (req, res) => {
     let slugName = req.params.slugName;
@@ -25,16 +42,33 @@ module.exports = () => {
     let status = req.body.status;
     let project_id = req.body.project_id;
     
-    let result = await issues.add(slugName, title, description, status, project_id);
+    try {
+      let result = await issues.add(
+        slugName,
+        title,
+        description,
+        status,
+        project_id
+      );
+      res.json(result);
+    } catch (ex) {
+      console.log('====== ERROR POSTCONTROLLER ISSUES');
+      return { error: ex };
+    }
     
-    res.json(result);
   };
 
   const updateStatus = async (req, res) => {
     let { issueNumber, status } = req.params;
 
-    const result = await issues.updateStatus(issueNumber, status);
-    res.json(result);
+    try {
+      const result = await issues.updateStatus(issueNumber, status);
+      res.json(result);
+    } catch (ex) {
+      console.log('====== ERROR STATUS::CONTROLLER ISSUES');
+      return { error: ex };
+    }
+    
   }
 
   return {

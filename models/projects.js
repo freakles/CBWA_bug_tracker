@@ -20,17 +20,36 @@ module.exports = () => {
             const projects = await db.get(COLLECTION, { slug });
             return { projectsList: projects };
         } catch (ex) {
+            console.log('========= PROJECTS GET { slug } ERROR');
             return { error: ex };
         }
     };
 
     const add = async (slug, name, description) => {
-        const results = await db.add(COLLECTION, {
-            slug: slug,
-            name: name,
-            description: description
-        });
-        return results.result;
+        let duplicate;
+
+        try {
+            duplicate = await db.find(COLLECTION, { slug }); 
+        } catch (ex) {
+            console.log('========= PROJECTS ADD UNIQUE ERROR');
+            return { error: ex };
+        }
+        if (!duplicate) {
+            try {
+                const results = await db.add(COLLECTION, {
+                  slug: slug,
+                  name: name,
+                  description: description,
+                });
+                return results.result;
+            } catch (ex) {
+                console.log('========= PROJECTS ADD ERROR');
+                return { error: ex };
+            }
+        } else {
+            return null;
+        }
+        
     };
 
     

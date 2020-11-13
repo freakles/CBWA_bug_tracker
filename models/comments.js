@@ -16,8 +16,9 @@ module.exports = () => {
 
         try {
             const allComments = await db.aggregate(COLLECTION, PIPELINE);
-            return allComments;
+            return { commentsList: allComments };
         } catch (ex) {
+            console.log('========= COMMENTS GET ERROR');
             return { error: ex }
         }
     };

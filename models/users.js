@@ -19,32 +19,55 @@ module.exports = () => {
       const users = await db.get(COLLECTION, { email });
       return { usersList: users };
     } catch (ex) {
+      console.log('========= USERS GET { email } ERROR');
       return { error: ex };
     }
   };
 
   const add = async (name, email, usertype, key) => {
-    const results = await db.add(COLLECTION, {
-      name: name,
-      email: email,
-      usertype: usertype,
-      key: key,
-    });
-    return results.result;
+    let duplicate;
+    try {
+       duplicate = await db.find(COLLECTION, { email });
+    } catch (ex) {
+      console.log('========= USERS ADD UNIQUE ERROR');
+      return { error: ex };
+    }
+    if (!duplicate) {
+      try {
+        const results = await db.add(COLLECTION, {
+          name: name,
+          email: email,
+          usertype: usertype,
+          key: key,
+        });
+        return results.result;
+      } catch (ex) {
+        console.log('========= USERS ADD ERROR');
+        return { error: ex };
+      }
+    } else {
+      return null;
+    }
+    
   };
     
   const getByKey = async(key) => {
       if(!key) {
             console.log("   01: Missing key");
             return null;
-        }
-
-        const users = await db.get(COLLECTION, { key });
-        if (users.length !== 2) {
-            console.log("   02: Bad key");
+      } else {
+        try {
+          const users = await db.get(COLLECTION, { key });
+          if (users.length !== 2) {
+            console.log('   02: Bad key');
             return null;
+          }
+          return users[0];
+        } catch (ex) {
+          console.log('========= USERS KEY ERROR');
+          return { error: ex };
         }
-        return users[0];
+      }
     };
 
     return {
