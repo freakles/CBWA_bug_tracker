@@ -18,11 +18,13 @@ app.use((req, res, next) => {
     next();
 });
 
+// Authentication
 app.use(async (req, res, next) => {
+  return next();
   const FailedAuthMessage = {
     error: 'Failed Authentication',
     message: 'Go Away!',
-    code: 'xxxx', // Some useful error code
+    code: '401', // Some useful error code
   };
 
   const suppliedKey = req.headers['x-api-key'];
@@ -55,6 +57,21 @@ app.use(async (req, res, next) => {
 });
 
 app.use(bodyParser.json());
+
+const path = require('path');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
+
+const PROJECTS = require('./models/projects')();
+app.get("/", async (req, res) => {
+  const { projectsList } = await PROJECTS.get();
+  res.render('index', {
+    title: "Hello world",
+    heading: "Hello World!",
+    text: "This is a text for body",
+    projects: projectsList
+  });
+});
 
 app.get('/', (req, res) => {
   res.json({
