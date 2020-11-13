@@ -1,15 +1,15 @@
 # CBWA_bug_tracker
 
 ## Table of Contents 
-  * [About the Project](https://github.com/freakles/CBWA_bug_tracker/new/master?readme=1#about-the-project) 
-    * [Built with](https://github.com/freakles/CBWA_bug_tracker/new/master?readme=1#built-with)
-  * [Getting Started](https://github.com/freakles/CBWA_bug_tracker/new/master?readme=1#getting-started)
-    * [Prerequisites](https://github.com/freakles/CBWA_bug_tracker/new/master?readme=1#prerequisites)
-    * [Installation](https://github.com/freakles/CBWA_bug_tracker/new/master?readme=1#installation)
-  * [Usage](https://github.com/freakles/CBWA_bug_tracker/new/master?readme=1#usage)
-  * [Change log](https://github.com/freakles/CBWA_bug_tracker/new/master?readme=1#change-log)
-  * [Roadmap](https://github.com/freakles/CBWA_bug_tracker/new/master?readme=1#roadmap)
-  * [Contact me](https://github.com/freakles/CBWA_bug_tracker/new/master?readme=1#contact-me)
+  * [About the Project](#about-the-project) 
+    * [Built with](#built-with)
+  * [Getting Started](#getting-started)
+    * [Prerequisites](#prerequisites)
+    * [Installation](#installation)
+  * [Usage](#usage)
+  * [Change log](#change-log)
+  * [Roadmap](#roadmap)
+  * [Contact me](#contact-me)
   
   ## About the Project
   
