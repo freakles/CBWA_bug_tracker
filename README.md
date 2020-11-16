@@ -18,6 +18,7 @@
   ## Built with
   * NodeJS
   * JavaScript
+  * Handlebars
   * Heroku
   * MongoDB
   
