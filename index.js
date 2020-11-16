@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const hostname = '0.0.0.0';
 const port = process.env.PORT || 3000;
 
+
+
 const projectsController = require('./controllers/projects')();
 const usersController = require('./controllers/users')();
 const issuesController = require('./controllers/issues')();
@@ -57,19 +59,50 @@ app.use(async (req, res, next) => {
 });
 
 app.use(bodyParser.json());
+app.use(express.static('views/images'));
 
 const path = require('path');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-const PROJECTS = require('./models/projects')();
-app.get("/", async (req, res) => {
-  const { projectsList } = await PROJECTS.get();
+app.get('/', async (req, res) => {
   res.render('index', {
-    title: "Hello world",
-    heading: "Hello World!",
-    text: "This is a text for body",
-    projects: projectsList
+    title: 'Bug Tracker API',
+    heading: 'Welcome to Bug Tracker API',
+    text: 'A CBWA Project',
+  });
+});
+
+const PROJECTS = require('./models/projects')();
+app.get('/projects', async (req, res) => {
+  const { projectsList } = await PROJECTS.get();
+  res.render('projects', {
+    title: 'Projects',
+    heading: 'Projects',
+    text: 'These are all projects recorded:',
+    projects: projectsList,
+  });
+});
+
+const USERS = require('./models/users')();
+app.get('/users', async (req, res) => {
+  const { usersList } = await USERS.get();
+  res.render('users', {
+    title: 'Users',
+    heading: 'Users',
+    text: 'These are all users recorded:',
+    users: usersList,
+  });
+});
+
+const ISSUES = require('./models/issues')();
+app.get("/issues", async (req, res) => {
+  const { issuesList } = await ISSUES.get();
+  res.render('issues', {
+    title: "Issues",
+    heading: "Issues",
+    text: "These are all issues recorded:",
+    issues: issuesList,
   });
 });
 

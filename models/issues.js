@@ -58,11 +58,11 @@ module.exports = () => {
 
   //not done yet
   /*  const add = async (slug, title, description, status) => {
-    const project = await db.get('projects', { slug });
-    const { project_id, slugName } = project;
-    const issueCount = await db.count(COLLECTION);
+    //const project = await db.get('projects', { slug });
+    //const { project_id, slugName } = project;
+    const issuesCount = await db.count(COLLECTION);
     const results = await db.add(COLLECTION, {
-      issueNumber: `${slugName}-${issueCount + 1}`,
+      issueNumber: slug + "-" + (issuesCount + 1),
       title: title,
       description: description,
       status: status,

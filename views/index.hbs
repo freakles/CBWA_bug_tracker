@@ -3,21 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>{{ title }}</title>
 </head>
 <body>
-    <h1>{{ heading }}</h1>
-
-    <div>{{ text }}</div>
-    <ul>
-        {{#each projects }}
-        <li>
-            {{ _id}}:
-            {{ slug}}:
-            {{ name }}:
-            {{ description }}:
-        </li>
-        {{/ each}}
-    </ul>
+    <div class="jumbotron text-center">
+        <h1>{{ heading }}</h1>
+        <div>{{ text }}</div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <h3>Projects</h3>
+                <a href="/projects"><img src="project2.png" alt=""></a>
+            </div>
+            <div class="col-sm-4">
+                <h3>Users</h3>
+                <a href="/users"><img src="users5.png" alt="users" width="230px" height="230px"></a>
+            </div>
+            <div class="col-sm-4">
+                <h3>Issues</h3>
+                <a href="/issues"><img src="issues6.png" alt="issues" title="issues" width="220px" height="220px"></a>
+            </div>
+        </div>
+    </div>
+    
 </body>
 </html>
