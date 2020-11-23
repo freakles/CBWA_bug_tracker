@@ -106,6 +106,17 @@ app.get("/issues", async (req, res) => {
   });
 });
 
+const COMMENTS = require('./models/comments')();
+app.get("/comments", async (req, res) => {
+  const { commentsList } = await COMMENTS.getComments();
+  res.render('comments', {
+    title: "Comments",
+    heading: "Comments",
+    text: "These are all comments recorded:",
+    comments: commentsList,
+  });
+});
+
 app.get('/', (req, res) => {
   res.json({
     hello: "bug-tracker",

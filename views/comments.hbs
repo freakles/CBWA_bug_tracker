@@ -13,16 +13,19 @@
 
 <body>
     <h1>{{ heading }}</h1>
-<br>
-    <div>{{ text }} </div>
+    <br>
+    <div>{{ text }}</div>
     <ul>
-        {{#each projects }}
+        {{#each comments }}
         <li>
-            id: {{ _id}} <br>
-            slug: {{ slug }} <br>
-            name: {{ name }} <br>
-            description: {{ description}} <br>
-            
+            issueNumber: {{ issueNumber }} <br>
+            comments: {{#each comment }} <br>
+            <dt>
+                <dd>&emsp;* id: {{ id }}</dd>  
+                <dd>&emsp;* text: {{ text }}</dd> 
+                <dd>&emsp;* author: {{ author }}</dd> 
+            </dt>
+            {{/ each}}
             <br>
         </li>
         {{/ each}}

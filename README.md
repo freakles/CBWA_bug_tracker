@@ -186,14 +186,14 @@
    > Fase 2 of the same project
    > * Handling errors
    > * Built a proper README.md for this project
+   > * Started Front-End
     
   
   ## Roadmap
   
   > Build a Front-End
   >>* Login
-  >>* List projects
-  >>* List issues
+  >>* Improve the lists (Projects, Users, Issues, Comments)
   -------------------------------------
   > Docker-ise the application
   -------------------------------------
