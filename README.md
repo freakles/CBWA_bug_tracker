@@ -187,6 +187,7 @@
    > * Handling errors
    > * Built a proper README.md for this project
    > * Started Front-End
+   ![Home](./img/index.png)
     
   
   ## Roadmap
