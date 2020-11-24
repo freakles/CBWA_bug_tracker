@@ -34,6 +34,15 @@ module.exports = () => {
     }
     if (!duplicate) {
       try {
+        if (!name || !email || !usertype || !key) {
+          console.log('======== MUST FILL ALL THE FIELDS');
+          return null;
+        }
+      } catch (ex) {
+        return { error: ex };
+      }
+
+      try {
         const results = await db.add(COLLECTION, {
           name: name,
           email: email,

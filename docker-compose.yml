@@ -1,0 +1,17 @@
+version: '3'
+services: 
+    web:
+        build: .
+        ports: 
+            - "8080:8080"
+    db:
+        image: "mongoclient/mongoclient"
+        environment: 
+            MONGO_INITDB_ROOT_USERNAME: freakles
+            MONGO_INITDB_ROOT_PASSWORD: pass1234
+            MONGO_URI: mongodb+srv://freakles:pass1234@cluster0.l6s6g.mongodb.net
+        volumes:
+            - db-data:/bug-tracker
+
+volumes:
+    db-data:

@@ -27,7 +27,6 @@ module.exports = () => {
 
     const add = async (slug, name, description) => {
         let duplicate;
-
         try {
             duplicate = await db.find(COLLECTION, { slug }); 
         } catch (ex) {
@@ -35,6 +34,15 @@ module.exports = () => {
             return { error: ex };
         }
         if (!duplicate) {
+            try {
+                if (!slug || !name || !description){
+                    console.log('======== MUST FILL ALL THE FIELDS');
+                    return null;
+                }
+            } catch (ex) {
+                return {error: ex}
+            }
+            
             try {
                 const results = await db.add(COLLECTION, {
                   slug: slug,
