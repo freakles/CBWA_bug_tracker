@@ -1,17 +1,23 @@
-version: '3'
+version: '3.7'
 services: 
-    web:
+    api:
         build: .
+        depends_on: 
+            - mongodb
+        environment: 
+            - MONGO_URI="mongodb+srv://freakles:pass1234@cluster0.l6s6g.mongodb.net"
         ports: 
             - "8080:8080"
-    db:
-        image: "mongoclient/mongoclient"
-        environment: 
-            MONGO_INITDB_ROOT_USERNAME: freakles
-            MONGO_INITDB_ROOT_PASSWORD: pass1234
-            MONGO_URI: mongodb+srv://freakles:pass1234@cluster0.l6s6g.mongodb.net
+        container_name: bug-tracker-api
+
+    mongodb:
+        image: mongo
+        ports: 
+            - "27017-27017"
         volumes:
-            - db-data:/bug-tracker
+            - db-data:/data/db
+        container_name: bug-tracker-db
+        
 
 volumes:
     db-data:

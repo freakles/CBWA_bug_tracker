@@ -191,6 +191,7 @@
    ![Projects](./img/projects.png)
    ![Users](./img/users.png)
    ![Comments](./img/comments.png)
+   > * Docker-ise the application
     
   
   ## Roadmap
@@ -198,8 +199,6 @@
   > Build a Front-End
   >>* Login
   >>* Improve the lists (Projects, Users, Issues, Comments)
-  -------------------------------------
-  > Docker-ise the application
   -------------------------------------
   > Start unit testing
   ____________________________________

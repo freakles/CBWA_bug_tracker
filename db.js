@@ -67,6 +67,7 @@ module.exports = () => {
             return reject(err);
           }
           resolve(result);
+          client.close();
         });
       });
     });
